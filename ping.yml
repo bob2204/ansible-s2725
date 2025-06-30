@@ -1,0 +1,8 @@
+---
+- name: Premier playbook (Acte I)
+  hosts: all
+
+  tasks:
+    - name: Module ping
+      ansible.builtin.ping:
+        data: OK

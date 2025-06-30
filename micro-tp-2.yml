@@ -1,0 +1,18 @@
+---
+- name: Micro-TP n°2
+  hosts: all
+
+  tasks:
+    - name: Copy fichier data.txt
+      ansible.builtin.copy:
+        src: data.txt
+        dest: /tmp
+        mode: "0644"
+
+    - name: Ajout de ligne
+      ansible.builtin.lineinfile:
+        line: Formation Ansible
+        dest: /var/log/tp2.txt
+        create: true
+        mode: "0644"
+      become: true

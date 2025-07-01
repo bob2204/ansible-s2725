@@ -22,6 +22,10 @@
       ansible.builtin.debug:
         var: stagiaires
 
+    - name: Extra-variable
+      ansible.builtin.debug:
+        msg: "Niveau: {{ level|default('Bin alors !') }}"
+
     - name: Fin du traitement
       ansible.builtin.debug:
         msg: "Fin du traitement"

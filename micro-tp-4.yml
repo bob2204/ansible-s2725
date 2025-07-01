@@ -1,0 +1,25 @@
+---
+- name: Préparation à la mise en cache des faits avec Redis
+  hosts: fedoracli
+  become: true
+
+  tasks:
+    - name: Désactivation du service firewalld
+      ansible.builtin.systemd:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: Redis - protected-mode à no
+      ansible.builtin.lineinfile:
+        dest: /etc/redis/redis.conf
+        regex: ^protected-mode
+        line: protected-mode no
+      notify: restart_redis
+
+  handlers:
+    - name: Redémarrage de redis
+      ansible.builtin.systemd:
+        name: redis
+        state: restarted
+      listen: restart_redis

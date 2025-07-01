@@ -1,0 +1,20 @@
+---
+- name: Les boucles avec loop
+  hosts: debiancli
+
+  tasks:
+    - name: Affichage des valeur un deux et trois
+      ansible.builtin.debug:
+        msg: "Valeur n°{{ idx+1 }}: {{ rang }}"
+      loop:
+        - un
+        - deux
+        - trois
+      loop_control:
+        loop_var: rang
+        index_var: idx 
+
+    - name: Affichage des adresses IP de la cible
+      ansible.builtin.debug:
+        msg: "ip: {{ item }}"
+      loop: "{{ ansible_all_ipv4_addresses }}"

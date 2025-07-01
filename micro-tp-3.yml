@@ -21,8 +21,17 @@
         dest: /etc/redis/redis.conf
         regex: ^bind
         line: bind *
+      notify:
+        - restart_redis
 
+    - name: Fin du traitement
+      ansible.builtin.debug:
+        msg: Fin du traitement
+
+  handlers:
     - name: Redémarrage du service redis
       ansible.builtin.systemd:
         name: redis
         state: restarted
+      listen:
+        - restart_redis

@@ -1,0 +1,11 @@
+---
+- name: Présentation des variables
+  hosts: all
+
+  vars:
+    formation: Ansible
+
+  tasks:
+    - name: Affichage de la variable formation
+      ansible.builtin.debug:
+        var: formation

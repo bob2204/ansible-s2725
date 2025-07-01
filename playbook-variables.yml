@@ -5,6 +5,9 @@
   vars:
     formation: Ansible
 
+  vars_files:
+    - formation.yml
+
   tasks:
     - name: Affichage de la variable formation
       ansible.builtin.debug:

@@ -1,0 +1,18 @@
+logins:
+  - login: bob
+    uid: 5000
+    gid: 5000
+    groupes:
+      - admin
+      - docker
+    shell: /bin/bash
+    home: /home/bob
+  - login: curt
+    uid: 5100
+    gid: 5100
+    groupes:
+      - devops
+      - rando
+      - docker
+    shell: /bin/bash
+    home: /home/curt

@@ -1,0 +1,10 @@
+---
+- name: Liste des interfaces réseau de chaque cible, hormis l'interface 'lo'
+  hosts: all
+
+  tasks:
+    - name: On boucle sur le fact (liste) ansible_interfaces
+      ansible.builtin.debug:
+        msg: "iface: {{ item }}"
+      when: item != 'lo'
+      loop: "{{ ansible_interfaces | sort }}"

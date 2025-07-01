@@ -3,3 +3,6 @@ debiancli ansible_host=192.168.56.200
 
 [php]
 fedoracli ansible_host=192.168.56.246
+
+[php:vars]
+PHP_VERSION=8.2

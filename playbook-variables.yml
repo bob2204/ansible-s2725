@@ -9,3 +9,8 @@
     - name: Affichage de la variable formation
       ansible.builtin.debug:
         msg: "Formation en cours: {{ formation }}"
+        verbosity: 2
+
+    - name: Fin du traitement
+      ansible.builtin.debug:
+        msg: "Fin du traitement"

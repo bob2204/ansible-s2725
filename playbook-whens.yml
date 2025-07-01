@@ -1,0 +1,36 @@
+---
+- name: Les structures de test
+  hosts: all
+
+  tasks:
+    - name: Affichage de la seule cible debiancli
+      ansible.builtin.debug:
+        msg: "Affichage unique de la cible {{ inventory_hostname }}"
+      when: inventory_hostname == 'debiancli'
+
+    - name: Affichage de la seule cible debiancli si architecture x86_64
+      ansible.builtin.debug:
+        msg: "Affichage unique de la cible {{ inventory_hostname }} ({{ ansible_architecture }})"
+      when:
+        - inventory_hostname == 'debiancli'
+        - ansible_architecture == 'x86_64'
+
+    - name: Affichage de la seule cible debiancli ou si architecture x86_64
+      ansible.builtin.debug:
+        msg: "Affichage unique de la cible {{ inventory_hostname }} ({{ ansible_architecture }})"
+      when:
+        - inventory_hostname == 'debiancli' or ansible_architecture == 'x86_64'
+
+    - name: Block...when
+      block:
+        - name: Sous-tâche n°1
+          ansible.builtin.debug:
+            msg: "Sous-tâche n°1"
+        - name: Sous-tâche n°2
+          ansible.builtin.debug:
+            msg: "Sous-tâche n°2"
+      when: inventory_hostname == 'debiancli'
+
+    - name: Module shell ou command ou raw
+      ansible.builtin.shell: whoami
+      changed_when: inventory_hostname != 'debiancli'

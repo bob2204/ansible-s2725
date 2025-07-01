@@ -14,6 +14,14 @@
         msg: "Formation en cours: {{ formation }}"
         verbosity: 2
 
+    - name: Inclusion du fichier stagiaires.yml
+      ansible.builtin.include_vars:
+        file: stagiaires.yml
+
+    - name: Affichage de la variable stagiaires
+      ansible.builtin.debug:
+        var: stagiaires
+
     - name: Fin du traitement
       ansible.builtin.debug:
         msg: "Fin du traitement"

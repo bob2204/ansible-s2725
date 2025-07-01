@@ -1,1 +1,3 @@
 ansible_host: 192.168.56.246
+apache_package_name: httpd
+apache_service_name: httpd

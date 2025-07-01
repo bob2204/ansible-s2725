@@ -8,4 +8,4 @@
   tasks:
     - name: Affichage de la variable formation
       ansible.builtin.debug:
-        var: formation
+        msg: "Formation en cours: {{ formation }}"

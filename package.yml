@@ -1,0 +1,16 @@
+---
+- name: Installation des paquets jq et tree
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Installation de jq
+      ansible.builtin.package:
+        name: jq
+        state: present
+
+    - name: Installation de tree
+      ansible.builtin.package:
+        name: tree
+        state: present

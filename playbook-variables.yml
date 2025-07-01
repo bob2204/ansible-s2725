@@ -24,7 +24,11 @@
 
     - name: Extra-variable
       ansible.builtin.debug:
-        msg: "Niveau: {{ level|default('Bin alors !') }}"
+        msg: "Niveau: {{ level | default('Bin alors !') }}"
+
+    - name: Variable magique hostvars
+      ansible.builtin.debug:
+        msg: "hostvars: {{ hostvars.debiancli.ansible_facts.hostname }}"
 
     - name: Fin du traitement
       ansible.builtin.debug:

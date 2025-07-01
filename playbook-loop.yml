@@ -2,6 +2,38 @@
 - name: Les boucles avec loop
   hosts: debiancli
 
+  vars:
+    stagiaires:
+      - nom: Ahcene
+        langages:
+          - C
+          - JS
+      - nom: Olivier
+        langages:
+          - Bash
+          - Python
+      - nom: Lionel
+        langages:
+          - Assembleur
+          - C
+      - nom: Antoine
+        langages:
+          - Fortran
+          - PHP
+      - nom: Sébastien
+        langages:
+          - C
+          - Assembleur68000
+      - nom: Rémi
+        langages:
+          - Bash
+          - Python
+          - JS
+      - nom: Christophe
+        langages:
+          - Ada
+          - Powershell
+
   tasks:
     - name: Affichage des valeur un deux et trois
       ansible.builtin.debug:
@@ -18,3 +50,9 @@
       ansible.builtin.debug:
         msg: "ip: {{ item }}"
       loop: "{{ ansible_all_ipv4_addresses }}"
+
+    - name: Pour chaque stagiaire, itérer sur les langages annoncés
+      ansible.builtin.debug:
+        msg: "{{ item.0.nom }}: {{ item.1 }}"
+      loop: "{{ stagiaires | subelements('langages') }}"
+      tags: inloop

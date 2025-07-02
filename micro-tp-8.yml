@@ -16,8 +16,8 @@
         enabled: true
 
     - name: Configuration du serveur nginx
-      ansible.builtin.copy:
-        src: nginx-conf/default
+      ansible.builtin.template:
+        src: nginx-conf/default.j2
         dest: /etc/nginx/sites-available/default
       notify: restart_nginx
 
@@ -54,7 +54,6 @@
     - name: Configuration du serveur php-fpm - phase 2
       ansible.builtin.lineinfile:
         dest: /etc/php-fpm.d/www.conf
-        state: present
         backrefs: true
         regex: ^(listen.allowed_clients.+)$
         line: ;\1

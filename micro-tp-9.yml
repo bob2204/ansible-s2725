@@ -1,0 +1,11 @@
+---
+- name: Les templates
+  hosts: all
+
+  tasks:
+    - name: Template infos.j2
+      ansible.builtin.template:
+        src: infos.j2
+        dest: /tmp/infos.txt
+        owner: stagiaire
+        mode: "0600"

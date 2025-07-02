@@ -1,0 +1,80 @@
+---
+- name: Mise en œuvre d'un serveur nginx
+  hosts: www
+  become: true
+
+  tasks:
+    - name: Installation nginx
+      ansible.builtin.package:
+        name: "{{ nginx_package_name }}"
+        state: present
+
+    - name: Configuration du service nginx
+      ansible.builtin.systemd:
+        name: "{{ nginx_service_name }}"
+        state: started
+        enabled: true
+
+    - name: Configuration du serveur nginx
+      ansible.builtin.copy:
+        src: nginx-conf/default
+        dest: /etc/nginx/sites-available/default
+      notify: restart_nginx
+
+  handlers:
+    - name: Redémarrage de nginx
+      ansible.builtin.systemd:
+        name: "{{ nginx_service_name }}"
+        state: restarted
+      listen: restart_nginx
+
+- name: Mise en œuvre serveur php
+  hosts: php
+  become: true
+
+  tasks:
+    - name: Installation de php-fpm
+      ansible.builtin.package:
+        name: "{{ php_package_name }}"
+        state: present
+
+    - name: Configuration du service php-fpm
+      ansible.builtin.systemd:
+        name: "{{ php_service_name }}"
+        state: started
+        enabled: true
+
+    - name: Configuration du serveur php-fpm - phase 2
+      ansible.builtin.lineinfile:
+        dest: /etc/php-fpm.d/www.conf
+        regex: ^listen *=
+        line: listen=192.168.56.246:9000
+      notify: restart_php
+
+    - name: Configuration du serveur php-fpm - phase 2
+      ansible.builtin.lineinfile:
+        dest: /etc/php-fpm.d/www.conf
+        state: present
+        backrefs: true
+        regex: ^(listen.allowed_clients.+)$
+        line: ;\1
+      notify: restart_php
+
+  handlers:
+    - name: Redémarrage php
+      ansible.builtin.systemd:
+        name: php-fpm
+        state: restarted
+      listen: restart_php
+
+- name: Copie des fichiers html
+  hosts: www,php
+  become: true
+
+  tasks:
+    - name: Copie des fichiers html
+      ansible.builtin.copy:
+        src: html/
+        dest: /var/www/html
+        owner: root
+        mode: "0644"

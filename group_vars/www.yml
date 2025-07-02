@@ -1,2 +1,4 @@
 nginx_package_name: nginx
 nginx_service_name: nginx
+php_server_addr: 192.168.56.246
+php_server_port: 9000

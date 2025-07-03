@@ -1,0 +1,18 @@
+---
+# tasks file for roles.d/nginx
+- name: Installation nginx
+  ansible.builtin.package:
+    name: "{{ nginx_package_name }}"
+    state: present
+
+- name: Configuration du service nginx
+  ansible.builtin.systemd:
+    name: "{{ nginx_service_name }}"
+    state: started
+    enabled: true
+
+- name: Configuration du serveur nginx
+  ansible.builtin.template:
+    src: nginx-conf/default.j2
+    dest: /etc/nginx/sites-available/default
+  notify: restart_nginx

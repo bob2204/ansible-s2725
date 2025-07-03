@@ -1,0 +1,27 @@
+---
+# tasks file for roles.d/php
+- name: Installation de php-fpm
+  ansible.builtin.package:
+    name: "{{ php_package_name }}"
+    state: present
+
+- name: Configuration du service php-fpm
+  ansible.builtin.systemd:
+    name: "{{ php_service_name }}"
+    state: started
+    enabled: true
+
+- name: Configuration du serveur php-fpm - phase 2
+  ansible.builtin.lineinfile:
+    dest: /etc/php-fpm.d/www.conf
+    regex: ^listen *=
+    line: listen=192.168.56.246:9000
+  notify: restart_php
+
+- name: Configuration du serveur php-fpm - phase 2
+  ansible.builtin.lineinfile:
+    dest: /etc/php-fpm.d/www.conf
+    backrefs: true
+    regex: ^(listen.allowed_clients.+)$
+    line: ;\1
+  notify: restart_php

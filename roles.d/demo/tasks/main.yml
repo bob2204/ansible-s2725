@@ -1,0 +1,8 @@
+---
+# tasks file for roles.d/demo
+
+- name: Task-I du rôle demo
+  ansible.builtin.debug:
+    msg: "Formation: {{ formation }}"
+  notify: quelquepart
+  changed_when: true

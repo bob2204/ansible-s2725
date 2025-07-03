@@ -1,0 +1,6 @@
+---
+- name: Rôles Ansible
+  hosts: debiancli
+
+  roles:
+    - role: demo

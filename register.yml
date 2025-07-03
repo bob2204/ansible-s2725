@@ -1,0 +1,18 @@
+---
+- name: Clause register
+  hosts: all
+
+  tasks:
+    - name: Infos sur un fichier
+      ansible.builtin.stat:
+        name: /etc/php-fpm.d/www.conf
+      register: stat_www
+
+    - name: Contenu de la variable stat_www
+      ansible.builtin.debug:
+        var: stat_www
+
+    - name: Tâche subordonnée à l'existance du fichier /etc/php-fpm.d/www.conf
+      ansible.builtin.debug:
+        msg: "Glop glop"
+      when: stat_www.stat.exists

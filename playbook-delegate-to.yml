@@ -1,0 +1,11 @@
+---
+- name: Notion de délégation
+  hosts: all
+
+  tasks:
+    - name: Variable ansible_hostname dans /tmp/cibles.txt
+      ansible.builtin.lineinfile:
+        dest: /tmp/cibles.txt
+        create: true
+        line: "{{ ansible_hostname }}"
+      delegate_to: localhost

@@ -1,0 +1,16 @@
+---
+- name: Vérification de l'existence d'un compte utilisateur
+  hosts: all
+
+  vars:
+    login: quoi
+
+  tasks:
+    - name: Grep sur /etc/passwd
+      ansible.builtin.shell: grep {{ login }} /etc/passwd
+      register: stat_user
+      failed_when: stat_user.rc > 1
+
+    - name: Infos sur le user
+      ansible.builtin.debug:
+        msg: "Le compte {{ login }} est {{ (stat_user.rc == 0) | ternary ('présent','absent') }}"

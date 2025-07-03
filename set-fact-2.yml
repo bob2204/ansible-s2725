@@ -1,0 +1,9 @@
+---
+- name: Accès à la variable bob
+  hosts: all
+
+  tasks:
+    - name: Affichage de bob
+      ansible.builtin.debug:
+        msg: "bob est ok"
+      when: bob

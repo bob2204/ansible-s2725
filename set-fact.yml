@@ -1,0 +1,23 @@
+---
+- name: Création de variable
+  hosts: all
+
+  tasks:
+    - name: Création de variable
+      ansible.builtin.set_fact:
+        bob: true
+        cacheable: true
+
+    - name: Affichage de bob
+      ansible.builtin.debug:
+        msg: "bob est ok"
+      when: bob
+
+- name: Accès à la variable bob
+  hosts: all
+
+  tasks:
+    - name: Affichage de bob
+      ansible.builtin.debug:
+        msg: "bob est ok"
+      when: bob

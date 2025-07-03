@@ -1,0 +1,13 @@
+---
+- name: Timeout de tâche
+  hosts: debiancli
+
+  tasks:
+    - name: Tâche bloquante
+      ansible.builtin.shell: read var
+      timeout: 5
+      ignore_errors: true
+
+    - name: On continue
+      ansible.builtin.debug:
+        msg: "On continue..."

@@ -1,0 +1,17 @@
+---
+- name: Include/Import tasks
+  hosts: all
+
+  tasks:
+    - name: Include_tasks
+      ansible.builtin.include_tasks:
+        file: files/mestasks-2.yml
+
+    - name: Import_tasks
+      ansible.builtin.import_tasks:
+        file: files/mestasks-2.yml
+
+
+    - name: Include_tasks
+      ansible.builtin.include_tasks:
+        file: "files/{{ ansible_hostname }}.yml"

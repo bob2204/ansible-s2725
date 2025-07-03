@@ -1,0 +1,11 @@
+- name: T1
+  ansible.builtin.debug:
+    msg: "Sous-tâche I {{ ansible_hostname }}"
+  tags:
+    - T1
+
+- name: T2
+  ansible.builtin.debug:
+    msg: "Sous-tâche II {{ ansible_hostname }}"
+  tags:
+    - T2

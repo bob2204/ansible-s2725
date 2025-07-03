@@ -1,0 +1,11 @@
+---
+- name: Manipulation de la variable hostvars
+  hosts: all
+
+  tasks:
+    - name: Variable hostvars
+      ansible.builtin.lineinfile:
+        dest: /tmp/hosts
+        create: true
+        line: "{{ item.infos.ansible_all_ipv4_addresses[-1] }} {{ item.infos.ansible_hostname }}"
+      loop: "{{ hostvars | dict2items(key_name=inventory_hostname,value_name='infos') }}"

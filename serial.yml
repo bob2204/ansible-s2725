@@ -1,0 +1,31 @@
+---
+- name: Les tags - Acte I
+  hosts: all
+  serial:
+    - 1
+    - 10%
+    - 50%
+    - 100%
+
+  tasks:
+    - name: Tâche I
+      ansible.builtin.debug:
+        msg: Tâche I
+
+    - name: Tâche II
+      ansible.builtin.debug:
+        msg: Tâche II
+      failed_when: true
+
+    - name: Tâche III
+      ansible.builtin.debug:
+        msg: Tâche III
+
+    - name: Tâche IV
+      ansible.builtin.debug:
+        msg: Tâche IV
+
+    - name: Tâche V
+      ansible.builtin.debug:
+        msg: Tâche V
+

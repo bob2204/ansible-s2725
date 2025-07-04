@@ -1,0 +1,26 @@
+---
+- name: Les tags - Acte I
+  hosts: all
+  strategy: free
+  #strategy: linear (stratégie par défaut)
+
+  tasks:
+    - name: Tâche I
+      ansible.builtin.shell: sleep $((RANDOM%10))
+
+    - name: Tâche II
+      ansible.builtin.debug:
+        msg: Tâche II
+
+    - name: Tâche III
+      ansible.builtin.debug:
+        msg: Tâche III
+
+    - name: Tâche IV
+      ansible.builtin.debug:
+        msg: Tâche IV
+
+    - name: Tâche V
+      ansible.builtin.debug:
+        msg: Tâche V
+

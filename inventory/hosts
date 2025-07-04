@@ -3,3 +3,10 @@ debiancli
 
 [php]
 fedoracli
+
+[lemp:children]
+www
+php
+
+[lemp]
+autre_cible

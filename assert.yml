@@ -1,0 +1,15 @@
+---
+- name: Module assert
+  hosts: all
+
+  tasks:
+    - name: Vérification des distributions supportées
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution in ('Debian','Ubuntu')
+        success_msg: Distribution supportée
+        fail_msg: Distribution non supportée
+
+    - name: Tâche suivante
+      ansible.builtin.debug:
+        msg: On continue

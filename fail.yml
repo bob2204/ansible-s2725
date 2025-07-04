@@ -1,0 +1,13 @@
+---
+- name: Module fail
+  hosts: all
+
+  tasks:
+    - name: Distributions supportées
+      ansible.builtin.fail:
+        msg: Distribution non supportée
+      failed_when: ansible_distribution not in ('Debian','Ubuntu')
+
+    - name: Tâche suivante
+      ansible.builtin.debug:
+        msg: On continue

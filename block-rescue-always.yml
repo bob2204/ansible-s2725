@@ -1,0 +1,31 @@
+---
+- name: Block rescue always
+  hosts: all
+
+  tasks:
+    - name: Block rescue
+      block:
+        - name: Commande avec pb
+          ansible.builtin.debug:
+            msg: "{{ ansible_distribution }}"
+          failed_when: ansible_distribution | lower != 'debian'
+          register: status
+        - name: Commande normale
+          ansible.builtin.debug:
+            msg: "Jusqu'ici tout va bien"
+          register: status
+      rescue:
+        - name: Tâche de secours
+          ansible.builtin.debug:
+            msg: "{{ ansible_distribution }}"
+          failed_when: ansible_distribution | lower != 'debian'
+          register: status
+      always:
+        - name: Tout de même
+          ansible.builtin.debug:
+            msg: "Bye !"
+          when: status.failed
+
+    - name: Tâche suivante
+      ansible.builtin.debug:
+        msg: On poursuit le playbook

@@ -1,0 +1,13 @@
+---
+- name: Création de groupes dynamiques
+  hosts: all
+
+  tasks:
+    - name: Groupes dynamiques selon les familles de distribution
+      ansible.builtin.group_by:
+        key: "{{ ansible_os_family }}"
+
+    - name: Affichage du nom du paquet apache
+      ansible.builtin.debug:
+        msg: "Paquet apache: {{ apache_package_name }}"
+      when: inventory_hostname in groups.Debian

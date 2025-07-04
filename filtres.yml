@@ -1,0 +1,18 @@
+---
+- name: Exemples de filtres
+  hosts: localhost
+
+  tasks:
+    - name: F1
+      ansible.builtin.debug:
+        msg: "{{ 'coucou' | upper }}"
+      when: ok | bool == true
+
+    - name: Lecture du fichier /etc/passwd
+      ansible.builtin.shell: cat /etc/passwd
+      register: passwd
+
+    - name: Liste des user et uid
+      ansible.builtin.debug:
+        msg: "{{ (item | split(':'))[0] }} {{ (item | split(':'))[2] }}"
+      loop: "{{ passwd.stdout_lines }}"
